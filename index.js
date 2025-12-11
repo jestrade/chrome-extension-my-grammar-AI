@@ -1,4 +1,4 @@
-const GEMINI_API_KEY = "your-api-key-here"; // Replace with your actual API key
+const GEMINI_API_KEY = "your_gemini_api_key_here";
 const GEMINI_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
@@ -23,7 +23,6 @@ document
       return;
     }
 
-    // 1. Start Loading State
     loadingElement.hidden = false;
     responseElement.innerText = "";
     copyButton.hidden = true;
@@ -108,7 +107,6 @@ document
     }
   });
 
-// --- Other Handlers (Mostly fine, just using the new variable name) ---
 clearButton.addEventListener("click", () => {
   document.getElementById("input-prompt").value = "";
   responseElement.innerText = "";
@@ -116,7 +114,7 @@ clearButton.addEventListener("click", () => {
   clearButton.hidden = true;
 });
 
-const copyText = responseElement; // Use the correct element reference
+const copyText = responseElement;
 const confirmation = document.getElementById("confirmation");
 
 copyButton.addEventListener("click", () => {
@@ -130,7 +128,7 @@ copyButton.addEventListener("click", () => {
     })
     .catch((err) => {
       console.error("Copy failed: ", err);
-      // Optional: Give user feedback on copy failure
+
       alert("Failed to copy text. Check console for error.");
     });
 });
