@@ -7,33 +7,59 @@
     <h1>My Grammar AI</h1>
     <textarea
       id="input-prompt"
-      placeholder='Type something'
+      placeholder="Type something"
       cols="30"
       rows="5"
     ></textarea>
-    <div class="options">
-      <div class="option"><label for="tone">Tone</label>
-      <select id="tone">
-        <option value="more-formal">More formal</option>
-        <option value="more-casual">More casual</option>
-      </select></div>
-      <div class="option"><label for="length">Length</label>
-      <select id="length">
-        <option value="shorter">Shorter</option>
-        <option value="longer">Longer</option>
-      </select></div>
-      <div class="option"><label for="format">Format</label>
-      <select id="format">
-        <option value="plain-text">Plain text</option>
-        <option value="markdown">Markdown</option>
-      </select></div>
+    <div class="options-ai">
+      <div class="option">
+        <input type="radio" id="gemini" name="service" value="gemini" checked />
+        <label for="gemini">Gemini</label>
+      </div>
+      <div class="option">
+        <input type="radio" id="chrome" name="service" value="chrome" />
+        <label for="chrome">Chrome</label>
+      </div>
     </div>
-    <div class="actions"><button id="button" class="primary">Rewrite</button></div>
-    <div class="actions"><div id="copy-button" hidden><img src="images/copy-icon.jpg" alt="Copy" width="24" height="24" /></div></div>
+    <div class="options">
+      <div class="option">
+        <label for="tone">Tone</label>
+        <select id="tone">
+          <option value="same">Same</option>
+          <option value="more-casual">More casual</option>
+          <option value="more-formal">More formal</option>
+        </select>
+      </div>
+      <div class="option">
+        <label for="length">Length</label>
+        <select id="length">
+          <option value="same">Same</option>
+          <option value="shorter">Shorter</option>
+          <option value="longer">Longer</option>
+        </select>
+      </div>
+      <div class="option">
+        <label for="format">Format</label>
+        <select id="format">
+          <option value="plain-text">Plain text</option>
+          <option value="markdown">Markdown</option>
+        </select>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="button-rewrite" class="primary">Rewrite</button>
+    </div>
+    <div class="actions">
+      <div id="copy-button" hidden>
+        <img src="images/copy-icon.jpg" alt="Copy" width="24" height="24" />
+      </div>
+    </div>
     <div id="response"></div>
     <div id="loading" hidden><span class="blink">loading ...</span></div>
     <div id="confirmation" hidden>Text copied!</div>
-    <div class="actions"><button id="clear-button" class="secondary" hidden>Clear</button></div>
+    <div class="actions">
+      <button id="clear-button" class="secondary" hidden>Clear</button>
+    </div>
     <script src="index.js" type="module"></script>
   </body>
 </html>

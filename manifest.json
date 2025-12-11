@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "💡 My Grammar Checker",
+  "name": "@jestrade - My GrammarAI",
   "version": "1.0",
   "description": "Checks your writing for grammar and spelling errors",
   "permissions": ["sidePanel"],
@@ -20,4 +20,3 @@
     "service_worker": "background.js"
   }
 }
-
