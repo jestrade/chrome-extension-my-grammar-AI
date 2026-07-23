@@ -1,56 +1,135 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <link rel="stylesheet" type="text/css" href="style.css" />
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iGræm.ər</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
-    <h1>iGræm.ər</h1>
-    <textarea
-      id="input-prompt"
-      placeholder="Type something"
-      cols="30"
-      rows="5"
-    ></textarea>
-    <div class="options">
-      <div class="option">
-        <label for="tone">Tone</label>
-        <select id="tone">
-          <option value="same">Same</option>
-          <option value="more-casual">More casual</option>
-          <option value="more-formal">More formal</option>
-        </select>
+    <header>
+      <h1>iGræm.ər</h1>
+    </header>
+
+    <main>
+      <!-- Input Section -->
+      <section class="input-section">
+        <!-- Adding an aria-label helps screen readers understand the textarea's purpose -->
+        <textarea
+          id="input-prompt"
+          placeholder="Type or paste your text here..."
+          aria-label="Text to process"
+          cols="30"
+          rows="5"
+        ></textarea>
+      </section>
+
+      <!-- Tab Navigation -->
+      <div class="tabs" role="tablist" aria-label="Processing Options">
+        <button class="tab active" data-tab="translate" role="tab" aria-selected="true" aria-controls="tab-content-translate">
+          Translate
+        </button>
+        <button class="tab" data-tab="rewrite" role="tab" aria-selected="false" aria-controls="tab-content-rewrite">
+          Rewrite
+        </button>
       </div>
-      <div class="option">
-        <label for="length">Length</label>
-        <select id="length">
-          <option value="same">Same</option>
-          <option value="shorter">Shorter</option>
-          <option value="longer">Longer</option>
-        </select>
+
+      <!-- Translate Tab Content -->
+      <div class="tab-content active" id="tab-content-translate" role="tabpanel" aria-labelledby="Translate">
+        <div class="options">
+          <div class="option">
+            <label for="input-language">Input Language</label>
+            <select id="input-language">
+              <!-- Using full language names instead of codes yields better LLM prompt results -->
+              <option value="English">English</option>
+              <option value="Spanish">Spanish</option>
+              <option value="French">French</option>
+              <option value="German">German</option>
+              <option value="Italian">Italian</option>
+              <option value="Portuguese">Portuguese</option>
+              <option value="Russian">Russian</option>
+              <option value="Chinese">Chinese</option>
+            </select>
+          </div>
+          <div class="option">
+            <label for="target-language">Target Language</label>
+            <select id="target-language">
+              <option value="Spanish">Spanish</option>
+              <option value="English">English</option>
+              <option value="French">French</option>
+              <option value="German">German</option>
+              <option value="Italian">Italian</option>
+              <option value="Portuguese">Portuguese</option>
+              <option value="Russian">Russian</option>
+              <option value="Chinese">Chinese</option>
+            </select>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="button-translate" class="primary">Translate</button>
+        </div>
       </div>
-      <div class="option">
-        <label for="format">Format</label>
-        <select id="format">
-          <option value="plain-text">Plain text</option>
-          <option value="markdown">Markdown</option>
-        </select>
+
+      <!-- Rewrite Tab Content -->
+      <div class="tab-content" id="tab-content-rewrite" role="tabpanel" aria-labelledby="Rewrite">
+        <div class="options">
+          <div class="option">
+            <label for="tone">Tone</label>
+            <select id="tone">
+              <option value="same">Same</option>
+              <option value="more-casual">More casual</option>
+              <option value="more-formal">More formal</option>
+            </select>
+          </div>
+          <div class="option">
+            <label for="length">Length</label>
+            <select id="length">
+              <option value="same">Same</option>
+              <option value="shorter">Shorter</option>
+              <option value="longer">Longer</option>
+            </select>
+          </div>
+          <div class="option">
+            <label for="format">Format</label>
+            <select id="format">
+              <option value="plain-text">Plain text</option>
+              <option value="markdown">Markdown</option>
+            </select>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="button-rewrite" class="primary">Rewrite</button>
+        </div>
       </div>
-    </div>
-    <div class="actions">
-      <button id="button-rewrite" class="primary">Rewrite</button>
-    </div>
-    <div class="actions">
-      <div id="copy-button" hidden>
-        <img src="images/copy-icon.jpg" alt="Copy" width="24" height="24" />
-      </div>
-    </div>
-    <div id="response"></div>
-    <div id="loading" hidden><span class="blink">loading ...</span></div>
-    <div id="confirmation" hidden>Text copied!</div>
-    <div class="actions">
-      <button id="clear-button" class="secondary" hidden>Clear</button>
-    </div>
+
+      <!-- Output Section -->
+      <output class="output-section" aria-live="polite">
+        <div id="loading" hidden><span class="blink">Processing...</span></div>
+        
+        <div id="response"></div>
+        
+        <div class="response-actions">
+          <button id="copy-button" aria-label="Copy response to clipboard" hidden>
+            <img src="images/copy-icon.jpg" alt="" aria-hidden="true" width="24" height="24" />
+          </button>
+          
+          <!-- NEW: Text-to-Speech Button -->
+          <button id="tts-button" aria-label="Read response aloud" hidden>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+          </button>
+
+          <button id="clear-button" class="secondary" hidden>Clear</button>
+        </div>
+
+        <!-- Using style="display: none;" here prevents conflicts with JS manipulating display styles -->
+        <div id="confirmation" style="display: none;" role="status">Text copied!</div>
+      </output>
+    </main>
+
     <script src="index.js" type="module"></script>
   </body>
 </html>

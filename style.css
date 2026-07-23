@@ -1,111 +1,266 @@
-body {
-  font-family: "Charis SIL", "Doulos SIL", "Noto Sans", "Segoe UI", sans-serif;
-  color: #1f1f1f;
-  background-color: #f2f2f2;
-  font-size: 16px;
-  padding: 8px;
-}
-
-input,
-button,
-textarea,
-select {
-  font-family: inherit;
-  font-size: inherit;
-}
-
-button {
-  background: #333;
-  color: white;
-  border-radius: 8px;
-  border: none;
-  min-width: 100px;
-  padding: 8px;
-  margin: 16px 0;
-  cursor: pointer;
-}
-button:hover {
-  opacity: 0.8;
-}
-
-button.primary {
-  background: #333;
-  color: white;
-}
-
-button.secondary {
-  background: #ccc;
-  color: black;
-}
-
-button[disabled] {
-  background: #ddd;
-  color: #aaa;
-}
-
-input[type="range"] {
-  margin-top: 16px;
-  accent-color: black;
-}
-
-textarea {
-  --padding: 32px;
-  width: calc(100% - var(--padding));
-  max-width: calc(100% - var(--padding));
-}
-
-.text,
-textarea {
-  background-color: white;
-  padding: 16px;
-  border-radius: 16px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
-  outline: none;
-}
-
-.options-ai {
-  margin: 8px 0 2px 0;
-}
-
-.options {
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-  margin: 8px 0 2px 0;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.option {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.actions {
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.blink {
-  animation: 1s ease-in-out 1s infinite reverse both running blink;
-}
-
-@keyframes blink {
-  25% {
-    opacity: 0.5;
+/* ==========================================================================
+   Design Tokens (CSS Variables)
+   ========================================================================== */
+   :root {
+    /* Colors */
+    --color-bg: #f2f2f2;
+    --color-surface: #ffffff;
+    --color-text: #1f1f1f;
+    --color-text-muted: #666666;
+    
+    --color-primary: #333333;
+    --color-primary-hover: #4d4d4d;
+    --color-secondary: #e0e0e0;
+    --color-secondary-hover: #cccccc;
+    
+    --color-border: #dddddd;
+    --color-focus: #005fcc; /* Accessible blue for focus rings */
+  
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+  
+    /* Shadows */
+    --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 1px 4px rgba(0, 0, 0, 0.16);
   }
-  50% {
-    opacity: 0;
+  
+  /* ==========================================================================
+     Global Reset & Base Styles
+     ========================================================================== */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box; /* Fixes padding layout issues */
   }
-  75% {
-    opacity: 0.5;
+  
+  body {
+    font-family: "Charis SIL", "Doulos SIL", "Noto Sans", "Segoe UI", sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    font-size: 16px;
+    padding: 16px;
+    margin: 0;
+    line-height: 1.5;
   }
-}
-
-[hidden] {
-  display: none;
-}
+  
+  input,
+  button,
+  textarea,
+  select {
+    font-family: inherit;
+    font-size: inherit;
+  }
+  
+  header h1 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
+  /* ==========================================================================
+     Form Elements (Textarea & Selects)
+     ========================================================================== */
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 16px;
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface);
+    border: 3px solid var(--color-primary);
+    resize: vertical; /* Allows user to grow vertically but prevents horizontal layout breakage */
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  textarea:focus-visible {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 3px rgba(0, 95, 204, 0.2);
+  }
+  
+  select {
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  
+  /* ==========================================================================
+     Buttons
+     ========================================================================== */
+  button {
+    border-radius: var(--radius-md);
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s, opacity 0.2s;
+  }
+  
+  button:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  
+  button[disabled] {
+    background: var(--color-border);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+  }
+  
+  button.primary {
+    background: var(--color-primary);
+    color: var(--color-surface);
+    min-width: 100px;
+  }
+  
+  button.primary:hover:not([disabled]) {
+    background: var(--color-primary-hover);
+  }
+  
+  button.secondary {
+    background: var(--color-secondary);
+    color: var(--color-text);
+  }
+  
+  button.secondary:hover:not([disabled]) {
+    background: var(--color-secondary-hover);
+  }
+  
+  /* ==========================================================================
+     Tabs Layout
+     ========================================================================== */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-top: 16px;
+    border-bottom: 2px solid var(--color-border);
+  }
+  
+  .tab {
+    flex: 1;
+    padding: 10px 12px;
+    text-align: center;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    background: var(--color-secondary);
+    color: var(--color-text-muted);
+    font-weight: 500;
+    user-select: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  
+  .tab:hover {
+    background: var(--color-secondary-hover);
+    color: var(--color-text);
+  }
+  
+  .tab.active {
+    background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: -2px; /* Pulls active tab down to cover the border */
+    border-bottom: 2px solid var(--color-surface);
+  }
+  
+  .tab-content {
+    display: none;
+    background: var(--color-surface);
+    padding: 16px;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  /* ==========================================================================
+     Layout Structures (Options & Actions)
+     ========================================================================== */
+  .options {
+    display: flex;
+    flex-wrap: wrap; /* Allows dropdowns to stack if side panel is too narrow */
+    gap: 12px;
+    margin-bottom: 16px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .option {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.9rem;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 12px;
+  }
+  
+  /* ==========================================================================
+     Output Section & Specific Overrides
+     ========================================================================== */
+  .output-section {
+    display: block;
+    margin-top: 16px;
+  }
+  
+  #response {
+    white-space: pre-wrap; /* Ensures line breaks in the LLM response are respected */
+    margin-bottom: 12px;
+  }
+  
+  .response-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  #copy-button,
+  #tts-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm); /* Added so the hover state looks clean */
+    color: var(--color-text); /* Ensures the SVG inherits the theme color */
+  }
+  
+  #copy-button:hover,
+  #tts-button:hover {
+    background: var(--color-secondary);
+  }
+  
+  #confirmation {
+    color: green;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-left: 8px;
+  }
+  
+  /* ==========================================================================
+     Animations & Utilities
+     ========================================================================== */
+  .blink {
+    animation: blink 1.5s ease-in-out infinite both;
+    color: var(--color-text-muted);
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+  
+  /* 
+    Using !important here is a standard best practice for the [hidden] attribute 
+    so that it can't be accidentally overridden by a display utility class like `display: flex`.
+  */
+  [hidden] {
+    display: none !important;
+  }
