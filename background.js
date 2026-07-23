@@ -3,34 +3,54 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   return true;
 });
 
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.error(error));
+
 const rewrite = async (msg, sendResponse) => {
-  if (msg.type === "improve" && 'Rewriter' in self) {
-    const options = {
-      sharedContext: msg.text,
-      tone: msg.tone,
-      format: msg.format,
-      length: msg.length,
-    };
+  const options = {
+    sharedContext: msg.text,
+    tone: msg.tone,
+    format: msg.format,
+    length: msg.length,
+  };
 
-    try {
-      const available = await Rewriter.availability();
-      if (available === 'unavailable') {
-        sendResponse({ response: 'Rewriter unavailable' });
-        return;
-      }
+  const OLLAMA_URL = "http://localhost:11434/api/generate";
 
-      const rewriter = await Rewriter.create(options);
+  try {
 
-      if (available !== 'available') {
-        rewriter.addEventListener('downloadprogress', (e) => {
-          console.log(e.loaded, e.total);
-        });
-      }
+    const response = await fetch("http://localhost:11434/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "qwen3:8b",
+        messages: [
+          {
+            role: "system",
+            content: "You are a text rewriting assistant. Your only task is to rewrite the user's text. Never explain, analyze, or give advice. Always return only the rewritten text."
+          },
+          {
+            role: "user",
+            content: `Rewrite this text while preserving its exact meaning. Improve grammar, clarity, and naturalness.
+    Tone: ${msg.tone}
+    Format: ${msg.format}
+    Length: ${msg.length}
 
-      const result = await rewriter.rewrite(msg.text);
-      sendResponse({ response: result });
-    } catch (error) {
-      sendResponse({ response: 'Failed to rewrite text' });
-    }
+    Text:
+    ${msg.text}`
+          }
+        ],
+        stream: false,
+        think: false,
+      }),
+    });
+    
+    const data = await response.json();
+    console.log(data);
+    sendResponse({ response: data.message.content });
+  } catch (error) {
+    sendResponse({ response: error.message });
   }
 };
