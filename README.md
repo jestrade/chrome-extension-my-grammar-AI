@@ -79,4 +79,11 @@ MIT License
 
 ## 📸 Screenshot
 
-<img width="378" alt="image" src="https://github.com/user-attachments/assets/efbc4c5e-32a5-4d7e-b555-938755e2ac27" />
+### Rewrite
+
+<img width="382" height="690" alt="image" src="https://github.com/user-attachments/assets/1966f011-f30f-4998-aca6-cad95e38876f" />
+
+
+### Translate
+
+<img width="365" height="567" alt="image" src="https://github.com/user-attachments/assets/2a81a6de-fabe-4b29-8358-5f5135a17c73" />
