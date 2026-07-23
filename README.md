@@ -6,13 +6,12 @@
 
 ## 🚀 Features
 
-- ✅ Grammar correction
-- ✍️ Tone adjustments (more casual or formal)
-- 📏 Length control (shorter/longer output)
-- 📝 Format options (plain text or markdown)
-- 🧠 Enhanced clarity and readability
-- 📋 One-click copy to clipboard
-- 🔒 Runs locally via Ollama — no cloud API keys required
+*   📝 **Smart Rewrite:** Adjust the tone (casual/formal), length (shorter/longer), and format (plain text/markdown) of any text.
+*   🌍 **Context-Aware Translation:** Translate text across 8 different languages. The AI is prompted with full language names to reduce hallucinations and ensure high-quality localization.
+*   🔊 **Native Text-to-Speech (TTS):** Listen to your generated text with the click of a button. The extension automatically detects the target language and adjusts the pronunciation accent accordingly using the browser's native Web Speech API.
+*   📋 **One-Click Copy:** Easily copy the generated response to your clipboard with visual confirmation.
+*   ♿ **Fully Accessible:** Built with semantic HTML, ARIA attributes, keyboard navigation, and live regions (`aria-live="polite"`) for screen readers.
+*   🎨 **Responsive Design:** A clean, modern UI powered by CSS variables that dynamically adapts to the width of the Chrome Side Panel.
 
 ---
 
